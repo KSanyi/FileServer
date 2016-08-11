@@ -2,7 +2,7 @@
 
     <timestamp key="bySecond" datePattern="yyyy-MM-dd-HH-mm-ss"/>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <File>logs/FileServer${bySecond}.log</File>
+        <File>logs/FileServer-${bySecond}.log</File>
         <encoder>
             <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{0} - %msg%n</pattern>
         </encoder>
@@ -15,7 +15,7 @@
     </appender>
 
   <logger name="kits.fileserver" level="DEBUG"/>
-  <logger name="org.eclipse.jetty" level="INFO"/>
+  <logger name="org.eclipse.jetty" level="WARN"/>
 
   <root level="INFO">
     <appender-ref ref="FILE"/>
