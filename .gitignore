@@ -5,3 +5,6 @@ logs
 .settings
 .classpath
 .project
+target/
+public/
+dependency-reduced-pom.xml

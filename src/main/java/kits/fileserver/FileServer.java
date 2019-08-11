@@ -11,27 +11,34 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.javalin.Javalin;
+import io.javalin.http.staticfiles.Location;
 
-public class FileServer extends Server {
+public class FileServer {
 
 	Logger logger = LoggerFactory.getLogger(FileServer.class);
 	
 	private static final int PORT = 8888;
 	
+	private final Javalin app;
+	
 	public FileServer() {
-		super(PORT);
-
-		ResourceHandler resourceHandler = new ResourceHandler();
-		resourceHandler.setDirectoriesListed(true);
-		resourceHandler.setResourceBase("public");
-		setHandler(resourceHandler);
+	    app = Javalin.create(config -> {
+	        //config.addStaticFiles("public", Location.EXTERNAL);
+	        config.server(() -> {
+	            Server server = new Server();
+	            ResourceHandler resourceHandler = new ResourceHandler();
+	            resourceHandler.setDirectoriesListed(true);
+	            resourceHandler.setResourceBase("public");
+	            server.setHandler(resourceHandler);
+	            return server;
+	        });
+	    });
 	}
 
 	public void startServer() throws Exception {
 		logger.info("Starting server at " + findIpAddress() + ":" + PORT);
-		start();
-		dumpStdErr();
-		join();
+		app.start(PORT);
 	}
 	
 	private String findIpAddress() throws SocketException{

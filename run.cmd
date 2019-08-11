@@ -1,1 +1,1 @@
-gradle run
+java -jar target/app.jar

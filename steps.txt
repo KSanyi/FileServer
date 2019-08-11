@@ -1,4 +1,0 @@
-1. create gradle file
-2. >gradle build
-3. >gradle eclipse
-
